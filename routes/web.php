@@ -26,7 +26,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/login', 'Admin\Auth\LoginController@login')->name('admin.login');
     Route::get('/register', 'Admin\Auth\RegisterController@showRegistrationForm')->name('admin.register');
     Route::post('/register', 'Admin\Auth\RegisterController@register')->name('admin.register');
-    Route::get('/password/reset', 'Admin\Auth\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+    Route::get('/password/reset', 'Admin\Auth\ForgotPasswordController@showLinkRequestForm')->name('admin.password.email');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
