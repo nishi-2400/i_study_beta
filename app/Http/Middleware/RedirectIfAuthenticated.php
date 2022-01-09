@@ -17,8 +17,11 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        // adminとユーザでログイン済みの場合のリダイレクト先の切り分け
+        $redirectPath = $guard === 'user' ? '/home' : '/admin/top';
+
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            return redirect($redirectPath);
         }
 
         return $next($request);
