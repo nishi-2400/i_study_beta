@@ -32,4 +32,24 @@ Route::group(['prefix' => 'admin'], function () {
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::post('/logout', 'Admin\Auth\LoginController@logout')->name('admin.logout');
     Route::get('/top', 'Admin\HomeController@index')->name('admin.top');
+
+    // ユーザ管理
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('', 'Admin\UserController@index')->name('admin.user');
+    });
+
+    // 単語管理
+    Route::group(['prefix' => 'word'], function () {
+        Route::get('', 'Admin\WordController@index')->name('admin.word');
+        Route::get('/create', 'Admin\WordController@create')->name('admin.word.create');
+        Route::post('/store', 'Admin\WordController@store')->name('admin.word.store');
+        Route::get('/show/{id}', 'Admin\WordController@show')->name('admin.word.show');
+        Route::post('/update', 'Admin\WordController@update')->name('admin.word.update');
+        Route::post('/delete', 'Admin\WordController@destroy')->name('admin.word.delete');
+    });
+
+    // 問題管理
+    Route::group(['prefix' => 'question'], function () {
+        Route::get('', 'Admin\QuestionController@index')->name('admin.question');
+    });
 });
