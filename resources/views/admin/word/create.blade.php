@@ -23,6 +23,22 @@
                         @csrf
                         <ul>
                             <li>
+                                <select name="language_id">
+                                    <option value="" disabled @if(is_null(old('language_id'))) selected @endif>Select Langueage</option>
+                                    @foreach (\AdminConst::LANGUAGES as $lang_id => $language)
+                                        <option value="{{ $lang_id }}" @if($lang_id === old('language_id')) selected @endif>{{ $language }}</option>
+                                    @endforeach
+                                </select>
+                            </li>
+                            <li>
+                                <select name="attribute_id">
+                                    <option value="" disabled @if(is_null(old('attribute_id'))) selected @endif>Select Attribute</option>
+                                    @foreach (\AdminConst::ATTRIBUTES as $attr_id => $attribute)
+                                        <option value="{{ $attr_id }}" @if($attr_id === old('attribute_id')) selected @endif>{{ $attribute }}</option>
+                                    @endforeach
+                                </select>
+                            </li>
+                            <li>
                                 <input type="text" name="word" value="{{ old('word') }}">
                             </li>
                             <li>

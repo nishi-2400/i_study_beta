@@ -32,18 +32,57 @@
             <div class="card">
                 <div class="card-header">単語一覧</div>
                 <div class="card-body">
+                    @if ($errors->any())
+                        <ul class="alert alert-danger m;">
+                            @foreach ($errors->all() as $error)
+                                <li class="ml-3">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+
                     <form id="wordSubmit" action="{{ route('admin.word.update') }}" method="POST">
                         @csrf
                         <input type="hidden" name="id" value="{{ $word->id }}">
                         <ul>
                             <li>
-                                <input id="" class="update" type="text" name="word" value="{{ $word->word }}">
+                                <select name="language_id">
+                                    <option value="" disabled @if(is_null(old('language_id') && !isset($word->language_id))) selected @endif>Select Langueage</option>
+                                    @foreach (\AdminConst::LANGUAGES as $lang_id => $language)
+                                        <option value="{{ $lang_id }}" @if($lang_id === $word->language_id) selected @endif>{{ $language }}</option>
+                                    @endforeach
+                                </select>
+                                {{-- @error('language_id')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror --}}
                             </li>
                             <li>
-                                <input id="" class="update"  type="text" name="level" value="{{ $word->level }}">
+                                <select name="attribute_id">
+                                    <option value="" disabled @if(is_null(old('attribute_id') && !isset($word->attribute_id))) selected @endif>Select Attribute</option>
+                                    @foreach (\AdminConst::ATTRIBUTES as $attr_id => $attribute)
+                                        <option value="{{ $attr_id }}" @if($attr_id === $word->attribute_id) selected @endif>{{ $attribute }}</option>
+                                    @endforeach
+                                </select>
+                                {{-- @error('attribute_id')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror --}}
                             </li>
                             <li>
-                                <input id="" class="update" type="text" name="definition" value="{{ $word->definition }}">
+                                <input type="text" name="word" value="{{ $word->word }}" class="@error('word') is-invalid @enderror">
+                                {{-- @error('word')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror --}}
+                            </li>
+                            <li>
+                                <input type="text" name="level" value="{{ $word->level }}" class="@error('level') is-invalid @enderror">
+                                {{-- @error('level')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror --}}
+                            </li>
+                            <li>
+                                <input type="text" name="definition" value="{{ $word->definition }}" class="@error('definition') is-invalid @enderror">
+                                {{-- @error('definition')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror --}}
                             </li>
                         </ul>
                     </form>

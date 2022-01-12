@@ -15,8 +15,8 @@ class CreateWordsTable extends Migration
     {
         Schema::create('words', function (Blueprint $table) {
             $table->increments('id');
-            // $table->int('language_id');
-            // $table->int('attribute_id');
+            $table->integer('language_id');
+            $table->integer('attribute_id');
             $table->string('word');
             $table->string('definition');
             $table->integer('level');

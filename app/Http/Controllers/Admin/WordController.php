@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\WordRequest;
 use App\Http\Controllers\Controller;
 use App\Word;
 
@@ -19,9 +20,11 @@ class WordController extends Controller
         return view('admin.word.create');
     }
 
-    public function store(Request $request)
+    public function store(WordRequest $request)
     {
         $params = [
+            'language_id' => $request->language_id,
+            'attribute_id' => $request->attribute_id,
             'word' => $request->word,
             'level' => $request->level,
             'definition' => $request->definition,
@@ -33,13 +36,13 @@ class WordController extends Controller
         return redirect()->route('admin.word.show', ['id' => $word->id])->with('flash_message', $flaseh_message);
     }
 
-    public function show(Request $request, $id = '')
+    public function show(request $request, $id = '')
     {
         $word = Word::ofId($id)->first();
         return view('admin.word.show', compact('word'));
     }
 
-    public function update(Request $request)
+    public function update(WordRequest $request)
     {
         $word = Word::ofId($request->id)->first();
         $word->word = $request->word;
@@ -51,7 +54,7 @@ class WordController extends Controller
         return redirect()->route('admin.word.show', ['id' => $word->id])->with('flash_message', $flaseh_message);
     }
 
-    public function destroy(Request $request)
+    public function destroy(WordRequest $request)
     {
         $word = Word::ofId($request->id)->first();
         $word->delete();

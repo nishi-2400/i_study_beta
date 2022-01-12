@@ -224,6 +224,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        // 定数
+        'AdminConst' => App\Consts\AdminConst::class,
+
     ],
 
 ];

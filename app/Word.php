@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Word extends Model
 {
     protected $fillable = [
+        'language_id',
+        'attribute_id',
         'word',
         'level',
         'definition',
