@@ -21,4 +21,21 @@ class Word extends Model
     {
         return $query->where('id', $type);
     }
+
+    public function scopeOfKeyword($query, $keywords)
+    {
+        // キーワード検索のスペース調整
+        $words = trim($keywords);
+        $words = str_replace(' ', ' ', $words);
+        $words = preg_replace('/\s+/', ' ', $words);
+        $words = explode(' ', $words);
+
+        // [単語]と[意味]が検索ターゲット
+        foreach ($words as $word) {
+            $query = $query->orWhere('word', 'LIKE', "%{$word}%");
+            $query = $query->orWhere('definition', 'LIKE', "%{$word}%");
+        }
+
+        return $query;
+    }
 }

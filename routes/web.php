@@ -46,6 +46,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::get('/show/{id}', 'Admin\WordController@show')->name('admin.word.show');
         Route::post('/update', 'Admin\WordController@update')->name('admin.word.update');
         Route::post('/delete', 'Admin\WordController@destroy')->name('admin.word.delete');
+        Route::post('/search', 'Admin\WordController@search')->name('admin.word.search');
     });
 
     // 問題管理

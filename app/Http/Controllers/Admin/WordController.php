@@ -62,4 +62,16 @@ class WordController extends Controller
         $flaseh_message = 'データを削除しました。';
         return redirect()->route('admin.word')->with('flash_message', $flaseh_message);
     }
+
+    public function search(Request $request)
+    {
+        $request = $request->all();
+
+        if (!is_null($request['keyword'])) {
+            $words = Word::ofKeyword($request['keyword']);
+        }
+
+        $words = $words->get();
+        return view('admin.word.index', compact('words'));
+    }
 }

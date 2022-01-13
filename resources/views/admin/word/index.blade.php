@@ -17,15 +17,28 @@
             <div class="card">
                 <div class="card-header">単語検索</div>
                 <div class="card-body">
-                    <form action="">
-                        <input id="" class="" type="text" name="keyword" value="{{ old('keyword') }}" placeholder="単語検索">
-                        {{-- {{ Form::text('question_category', old('question_category'), ['placeholder' => '問題カテゴリを入力']) }} --}}
+                    <form action="{{ route('admin.word.search') }}" method="POST">
+                        @csrf
+                        <input　type="text" name="keyword" value="{{ old('keyword') }}" placeholder="単語/意味検索">
+                        <select name="language_id">
+                            <option value="" selected >Select Langueage</option>
+                            @foreach (\AdminConst::LANGUAGES as $lang_id => $language)
+                                <option value="{{ $lang_id }}">{{ $language }}</option>
+                            @endforeach
+                        </select>
+
+                        <select name="attribute_id">
+                            <option value="" selected >Select Attribute</option>
+                            @foreach (\AdminConst::ATTRIBUTES as $attr_id => $attribute)
+                                <option value="{{ $attr_id }}" selected>{{ $attribute }}</option>
+                            @endforeach
+                        </select>
+                        <button>検索</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="row justify-content-center">
         <div class="col-md">
             <div class="card">
