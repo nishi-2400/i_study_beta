@@ -11,7 +11,7 @@ class WordController extends Controller
 {
     public function index(Request $request)
     {
-        $words = Word::all();
+        $words = Word::limit(Word::DISPLAY_NUMBER)->orderBy('word', 'asc')->get();
         return view('admin.word.index', compact('words'));
     }
 
@@ -63,15 +63,33 @@ class WordController extends Controller
         return redirect()->route('admin.word')->with('flash_message', $flaseh_message);
     }
 
+
+    // 単語検索
     public function search(Request $request)
     {
-        $request = $request->all();
+        $params = $request->all();
 
-        if (!is_null($request['keyword'])) {
-            $words = Word::ofKeyword($request['keyword']);
+        if (!is_null($params['keyword'])) {
+            $words = Word::ofKeyword($params['keyword']);
         }
 
-        $words = $words->get();
-        return view('admin.word.index', compact('words'));
+        if (!is_null($params['attribute_id'])) {
+            $words = Word::ofAttributeId($params['attribute_id']);
+        }
+
+        if (!is_null($params['language_id'])) {
+            $words = Word::ofLanguageId($params['language_id']);
+        }
+
+        if (!is_null($params['level'])) {
+            $words = Word::ofLevel($params['level']);
+        }
+
+        $words = isset($words)
+            ? $words->limit(Word::DISPLAY_NUMBER)
+            : Word::limit(Word::DISPLAY_NUMBER);
+        $words = $words->orderBy('word', 'asc')->get();
+
+        return view('admin.word.index', compact('words', 'params'));
     }
 }

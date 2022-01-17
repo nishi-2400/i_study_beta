@@ -35,4 +35,21 @@ class AdminConst
         self::CONJUNCTION => '接続詞',
         self::INTERJECTION => '間投詞',
     ];
+
+    // 品詞
+    const LEVEL_ONE = 1;
+    const LEVEL_TWO = 2;
+    const LEVEL_THREE = 3;
+    const LEVEL_FOUR = 4;
+    const LEVEL_FIVE = 5;
+    const LEVEL_SIX = 6;
+
+    const LANGUAGE_LEVEL = [
+        self::LEVEL_ONE => 'A1',
+        self::LEVEL_TWO => 'A2',
+        self::LEVEL_THREE => 'B1',
+        self::LEVEL_FOUR => 'B2',
+        self::LEVEL_FIVE => 'C1',
+        self::LEVEL_SIX => 'C2',
+    ];
 }

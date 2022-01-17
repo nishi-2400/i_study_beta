@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Word extends Model
 {
+    // 一覧表示件数
+    const DISPLAY_NUMBER = 25;
+
     protected $fillable = [
         'language_id',
         'attribute_id',
@@ -20,6 +23,21 @@ class Word extends Model
     public function scopeOfId($query, $type)
     {
         return $query->where('id', $type);
+    }
+
+    public function scopeOfLanguageId($query, $language_id)
+    {
+        return $query->where('language_id', $language_id);
+    }
+
+    public function scopeOfAttributeId($query, $attribute_id)
+    {
+        return $query->where('attribute_id', $attribute_id);
+    }
+
+    public function scopeOfLevel($query, $level)
+    {
+        return $query->where('level', $level);
     }
 
     public function scopeOfKeyword($query, $keywords)
