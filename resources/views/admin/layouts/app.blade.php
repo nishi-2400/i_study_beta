@@ -72,6 +72,10 @@
                                         単語管理
                                     </a>
 
+                                    <a class="dropdown-item" href="{{ route('admin.sentence') }}">
+                                        文章管理
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('admin.question') }}">
                                         問題管理
                                     </a>

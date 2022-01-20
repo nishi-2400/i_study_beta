@@ -17,7 +17,7 @@
     <div class="row justify-content-center">
         <div class="col-md">
             <div class="card">
-                <div class="card-header">単語一覧</div>
+                <div class="card-header">文章一覧</div>
                 <div class="card-body">
                     @if ($errors->any())
                         <ul class="alert alert-danger m;">
@@ -27,15 +27,15 @@
                         </ul>
                     @endif
 
-                    <form id="wordSubmit" action="{{ route('admin.word.update') }}" method="POST">
+                    <form id="sentenceSubmit" action="{{ route('admin.sentence.update') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="id" value="{{ $word->id }}">
+                        <input type="hidden" name="id" value="{{ $sentence->id }}">
                         <ul>
                             <li>
                                 <select name="language_id">
-                                    <option value="" disabled @if(is_null(old('language_id') && !isset($word->language_id))) selected @endif>Select Langueage</option>
+                                    <option value="" disabled @if(is_null(old('language_id') && !isset($sentence->language_id))) selected @endif>Select Langueage</option>
                                     @foreach (\AdminConst::LANGUAGES as $lang_id => $language)
-                                        <option value="{{ $lang_id }}" @if($lang_id === $word->language_id) selected @endif>{{ $language }}</option>
+                                        <option value="{{ $lang_id }}" @if($lang_id === $sentence->language_id) selected @endif>{{ $language }}</option>
                                     @endforeach
                                 </select>
                                 {{-- @error('language_id')
@@ -43,18 +43,7 @@
                                 @enderror --}}
                             </li>
                             <li>
-                                <select name="attribute_id">
-                                    <option value="" disabled @if(is_null(old('attribute_id') && !isset($word->attribute_id))) selected @endif>Select Attribute</option>
-                                    @foreach (\AdminConst::ATTRIBUTES as $attr_id => $attribute)
-                                        <option value="{{ $attr_id }}" @if($attr_id === $word->attribute_id) selected @endif>{{ $attribute }}</option>
-                                    @endforeach
-                                </select>
-                                {{-- @error('attribute_id')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror --}}
-                            </li>
-                            <li>
-                                <input type="text" name="word" value="{{ $word->word }}" class="@error('word') is-invalid @enderror">
+                                <input type="text" name="sentence" value="{{ $sentence->sentence }}" class="@error('sentence') is-invalid @enderror">
                                 {{-- @error('word')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror --}}
@@ -71,7 +60,7 @@
                                 @enderror --}}
                             </li>
                             <li>
-                                <input type="text" name="definition" value="{{ $word->definition }}" class="@error('definition') is-invalid @enderror">
+                                <input type="text" name="meaning" value="{{ $sentence->meaning }}" class="@error('meaning') is-invalid @enderror">
                                 {{-- @error('definition')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror --}}
@@ -80,8 +69,8 @@
                     </form>
 
                     <div>
-                        <button form="wordSubmit">変更</button>
-                        <button type="button" onclick="formDelete('{{ route('admin.word.delete') }}')">削除</button>
+                        <button form="sentenceSubmit">変更</button>
+                        <button type="button" onclick="formDelete('{{ route('admin.sentence.delete') }}')">削除</button>
                     </div>
                 </div>
             </div>
@@ -96,9 +85,9 @@
 function formDelete(url) {
     var result = window.confirm('削除しますか？')
     if (result) {
-        var form = document.getElementById('wordSubmit')
+        var form = document.getElementById('sentenceSubmit')
         var formData = new FormData(form)
-        formData.delete('word')
+        formData.delete('sentence')
         formData.delete('level')
         formData.delete('definition')
 

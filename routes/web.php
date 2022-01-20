@@ -49,6 +49,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::post('/search', 'Admin\WordController@search')->name('admin.word.search');
     });
 
+    // 文章管理
+    Route::group(['prefix' => 'sentence'], function () {
+        Route::get('', 'Admin\SentenceController@index')->name('admin.sentence');
+        Route::get('/create', 'Admin\SentenceController@create')->name('admin.sentence.create');
+        Route::post('/store', 'Admin\SentenceController@store')->name('admin.sentence.store');
+        Route::get('/show/{id}', 'Admin\SentenceController@show')->name('admin.sentence.show');
+        Route::post('/update', 'Admin\SentenceController@update')->name('admin.sentence.update');
+        Route::post('/delete', 'Admin\SentenceController@destroy')->name('admin.sentence.delete');
+        Route::post('/search', 'Admin\SentenceController@search')->name('admin.sentence.search');
+    });
+
     // 問題管理
     Route::group(['prefix' => 'question'], function () {
         Route::get('', 'Admin\QuestionController@index')->name('admin.question');

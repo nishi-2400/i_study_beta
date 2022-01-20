@@ -17,9 +17,9 @@
     <div class="row justify-content-center">
         <div class="col-md">
             <div class="card">
-                <div class="card-header">単語追加</div>
+                <div class="card-header">文章追加</div>
                 <div class="card-body">
-                    <form id="wordSubmit" action="{{ route('admin.word.store') }}" method="POST">
+                    <form id="sententceSubmit" action="{{ route('admin.sentence.store') }}" method="POST">
                         @csrf
                         <ul>
                             <li>
@@ -31,15 +31,7 @@
                                 </select>
                             </li>
                             <li>
-                                <select name="attribute_id">
-                                    <option value="" disabled @if(is_null(old('attribute_id'))) selected @endif>Select Attribute</option>
-                                    @foreach (\AdminConst::ATTRIBUTES as $attr_id => $attribute)
-                                        <option value="{{ $attr_id }}" @if($attr_id === old('attribute_id')) selected @endif>{{ $attribute }}</option>
-                                    @endforeach
-                                </select>
-                            </li>
-                            <li>
-                                <input type="text" name="word" value="{{ old('word') }}">
+                                <input type="text" name="sentence" value="{{ old('sentence') }}">
                             </li>
                             <li>
                                 <select name="level">
@@ -50,16 +42,13 @@
                                 </select>
                             </li>
                             <li>
-                                <input type="text" name="definition" value="{{ old('definition') }}">
-                            </li>
-                            <li>
-                                <input type="text" name="sound" value="{{ old('sound') }}">
+                                <input type="text" name="meaning" value="{{ old('meaning') }}">
                             </li>
                         </ul>
                     </form>
 
                     <div>
-                        <button form="wordSubmit">追加</button>
+                        <button form="sententceSubmit">追加</button>
                     </div>
                 </div>
             </div>
