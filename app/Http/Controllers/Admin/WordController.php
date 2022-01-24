@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\WordRequest;
 use App\Http\Controllers\Controller;
 use App\Word;
+use Excel;
 
 class WordController extends Controller
 {
@@ -36,7 +37,7 @@ class WordController extends Controller
         return redirect()->route('admin.word.show', ['id' => $word->id])->with('flash_message', $flaseh_message);
     }
 
-    public function show(request $request, $id = '')
+    public function show(Request $request, $id = '')
     {
         $word = Word::ofId($id)->first();
         return view('admin.word.show', compact('word'));
@@ -91,5 +92,17 @@ class WordController extends Controller
         $words = $words->orderBy('word', 'asc')->get();
 
         return view('admin.word.index', compact('words', 'params'));
+    }
+
+    public function uplodeExcelFile(Request $request)
+    {
+        $file = $request->file('file');
+        $rows = Excel::load($file->getRealPath(), function ($reader) {
+        })->get();
+
+        $rows = $rows->toArray();
+
+        $flaseh_message = 'Excelファイルのアップロードが完了しました。';
+        return redirect()->route('admin.word')->with('flash_message', $flaseh_message);
     }
 }

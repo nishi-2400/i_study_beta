@@ -41,7 +41,7 @@ class Sentence extends Model
         $words = preg_replace('/\s+/', ' ', $words);
         $words = explode(' ', $words);
 
-        // [単語]と[意味]が検索ターゲット
+        // [文章]と[意味]が検索ターゲット
         foreach ($words as $word) {
             $query = $query->orWhere('sentence', 'LIKE', "%{$word}%");
             $query = $query->orWhere('meaning', 'LIKE', "%{$word}%");

@@ -31,10 +31,12 @@ class SentenceController extends Controller
 
         $sentence = Sentence::create($params);
         $flaseh_message = 'データを追加しました。';
-        return redirect()->route('admin.sentence.show', ['id' => $sentence->id])->with('flash_message', $flaseh_message);
+        return redirect()->route('admin.sentence.show', [
+            'id' => $sentence->id,
+        ])->with('flash_message', $flaseh_message);
     }
 
-    public function show(request $request, $id = '')
+    public function show(Request $request, $id = '')
     {
         $sentence = Sentence::ofId($id)->first();
         return view('admin.sentence.show', compact('sentence'));
@@ -44,12 +46,15 @@ class SentenceController extends Controller
     {
         $sentence = Sentence::ofId($request->id)->first();
         $sentence->sentence = $request->sentence;
+        $sentence->language_id = $request->language_id;
         $sentence->level = $request->level;
         $sentence->meaning = $request->meaning;
         $sentence->save();
 
         $flaseh_message = 'データを更新しました。';
-        return redirect()->route('admin.sentence.show', ['id' => $sentence->id])->with('flash_message', $flaseh_message);
+        return redirect()->route('admin.sentence.show', [
+            'id' => $sentence->id
+        ])->with('flash_message', $flaseh_message);
     }
 
     public function destroy(SentenceRequest $request)

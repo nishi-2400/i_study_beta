@@ -175,6 +175,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // Excel読み込み
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
     ],
 
     /*
@@ -226,6 +229,9 @@ return [
 
         // 定数
         'AdminConst' => App\Consts\AdminConst::class,
+
+        // Excel読み込み
+        'Excel' => \Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

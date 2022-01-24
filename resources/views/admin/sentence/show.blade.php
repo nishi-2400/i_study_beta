@@ -35,7 +35,7 @@
                                 <select name="language_id">
                                     <option value="" disabled @if(is_null(old('language_id') && !isset($sentence->language_id))) selected @endif>Select Langueage</option>
                                     @foreach (\AdminConst::LANGUAGES as $lang_id => $language)
-                                        <option value="{{ $lang_id }}" @if($lang_id === $sentence->language_id) selected @endif>{{ $language }}</option>
+                                        <option value="{{ $lang_id }}" @if($sentence->language_id == $lang_id) selected @endif>{{ $language }}</option>
                                     @endforeach
                                 </select>
                                 {{-- @error('language_id')
@@ -50,9 +50,9 @@
                             </li>
                             <li>
                                 <select name="level">
-                                    <option value="" selected >Select level</option>
+                                    <option value="" selected disabled>Select level</option>
                                     @foreach (\AdminConst::LANGUAGE_LEVEL as $level_id => $level)
-                                        <option value="{{ $level_id }}" {{ isset($params) && $params['level'] == $level_id ? 'selected' : '' }}>{{ $level }}</option>
+                                        <option value="{{ $level_id }}" {{ $sentence->level == $level_id ? 'selected' : '' }}>{{ $level }}</option>
                                     @endforeach
                                 </select>
                                 {{-- @error('level')

@@ -19,6 +19,13 @@
             <div class="card">
                 <div class="card-header">文章追加</div>
                 <div class="card-body">
+                    @if ($errors->any())
+                        <ul class="alert alert-danger m;">
+                            @foreach ($errors->all() as $error)
+                                <li class="ml-3">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
                     <form id="sententceSubmit" action="{{ route('admin.sentence.store') }}" method="POST">
                         @csrf
                         <ul>
